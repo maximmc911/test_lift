@@ -1,7 +1,12 @@
     
     <script setup>
 
-const example = `waiting`;
+
+const props = defineProps({
+    pointer: String,
+    floor: Number,
+})
+
 
 
     </script>
@@ -10,11 +15,11 @@ const example = `waiting`;
 <div class="container">
 <div class="tabl">
 
-    <v-icon name="ai-acclaim"  animation="flash" sppeed="slow" color="yellow" scale="1.5" v-if="example == 'top'"/>
-    <v-icon name="ai-acclaim"  animation="flash" sppeed="slow" flip="vertical" color="red" scale="1.5" v-else-if="example == 'bottom'"/>
-    <v-icon name="md-stopcircle-sharp"  animation="flash" sppeed="slow" flip="vertical" color="green" scale="1.2" v-else-if="example == 'pause'"/>
-    <v-icon name="fa-arrows-alt-v"  animation="flash" sppeed="slow"  color="blue" scale="1.2" v-else-if="example == 'waiting'"/>
-    <h2>1</h2>
+    <v-icon name="ai-acclaim"  animation="flash" sppeed="slow" color="yellow" scale="1.5" v-if="props.pointer == 'top'"/>
+    <v-icon name="ai-acclaim"  animation="flash" sppeed="slow" flip="vertical" color="red" scale="1.5" v-else-if="props.pointer == 'bottom'"/>
+    <v-icon name="md-stopcircle-sharp"  animation="flash" sppeed="slow" flip="vertical" color="green" scale="1.2" v-else-if="props.pointer == 'pause'"/>
+    <v-icon name="fa-arrows-alt-v"  animation="flash" sppeed="slow"  color="blue" scale="1.2" v-else-if="props.pointer == 'waiting'"/>
+    <h2>{{ props.floor }}</h2>
 </div>
 </div>
         </div>

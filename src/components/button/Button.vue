@@ -19,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px 60px;
+    margin: 15px 45px;
   
     width: 30px;
     height: 30px;
