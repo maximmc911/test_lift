@@ -3,6 +3,38 @@
     import Lift from './lift/Lift.vue';
     import { floor } from './data/data'
     import { handleClickBtn } from './functions/functions'
+import { onUpdated } from 'vue';
+
+    const CheckFloor = (e) =>{
+if (floor[1].pointer !== 'waiting') {
+if (!floor[1].queue.includes(e)) {
+    
+    floor[1].queue.push(e)
+    console.log(floor[1].queue);
+}
+
+     
+  
+
+        
+        return
+    }
+
+    handleClickBtn(e)
+}
+
+    
+
+
+    onUpdated (  () => {
+        if (floor[1].pointer == 'waiting' && floor[1].queue.length !==0) {
+            handleClickBtn(floor[1].queue[0])
+            floor[1].queue.shift()
+        }
+console.log('Я обновился')
+})
+
+
 </script>
 <template>
     <div class="container">
@@ -16,8 +48,12 @@
         <div style="display: flex; flex-direction: column-reverse;">
             <div class="" v-for="(index) in 5">
 
-                <div class="hall" :key="index" @click="handleClickBtn(index)" >
-                   <h3 style="margin: 5px;">{{ index }}</h3>
+                <div class="hall" :key="index" @click="CheckFloor(index)" >
+                    <div style="display: flex; align-items: center;">
+                        <h3 style="margin: 5px;">{{ index }}</h3>
+                        <div class="activeBtn" v-if="floor[1].activeBtn == index"></div>
+                        <div class="activeBtn" v-else style="background:rgb(156, 157, 240);"></div>
+                    </div>
                     <Button/>
                 </div>
             </div>
@@ -49,5 +85,12 @@ gap: 10px;
     height: 20vh;
     border-bottom: 1px solid grey;
     border-top: 1px solid grey;
+}
+.activeBtn{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background: rgb(129, 236, 136);
 }
 </style>

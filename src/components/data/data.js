@@ -9,6 +9,8 @@ import { ref, reactive } from 'vue';
         {
             floor: 1,
             pointer: 'waiting',
+            activeBtn: 1,
+            queue:[],
      
         }
     ]);
