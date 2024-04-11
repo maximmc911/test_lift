@@ -12,7 +12,10 @@ if (!(localStorage.key(0) == "user-info")) {
 } else {
   floor.length = 0;
   floor.push(...JSON.parse(localStorage.getItem('user-info')))
-  handleClickBtn(JSON.parse(localStorage.getItem('user-info'))[1].queue[0])
+  if (JSON.parse(localStorage.getItem('user-info'))[1].queue.length !==0) {
+    handleClickBtn(JSON.parse(localStorage.getItem('user-info'))[1].queue[0])
+    
+  }
 }
 
 </script>
