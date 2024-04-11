@@ -3,79 +3,59 @@
     import Lift from './lift/Lift.vue';
     import { floor } from './data/data'
     import { handleClickBtn } from './functions/functions'
-import { onUpdated } from 'vue';
+    import { onUpdated } from 'vue';
 
-const CheckFloor = (e) =>{
-if (floor[1].pointer !== 'waiting') {
-if (!floor[1].queue.includes(e)) {
-    
-    floor[1].queue.push(e);
-    
-    console.log(floor[1].queue);
-    
-}
+    // finction
 
-     
-  
-
-        
-        return
+    const CheckFloor = (e) => {
+        if (floor[1].pointer !== 'waiting') {
+            if (!floor[1].queue.includes(e)) {
+                floor[1].queue.push(e);
+            }
+            return
+        }
+        handleClickBtn(e)
     }
 
-    handleClickBtn(e)
-}
-console.log(JSON.parse(localStorage.getItem("user-info"))[1].queue[0]);
+    // hooks
 
-
-
-    onUpdated (  () => {
-
-        if (floor[1].pointer == 'waiting' && floor[1].queue.length !==0) {
+    onUpdated(() => {
+        if (floor[1].pointer == 'waiting' && floor[1].queue.length !== 0) {
             handleClickBtn(floor[1].queue[0])
             floor[1].queue.shift()
         }
+    })
 
-})
-
-onUpdated(() => {
-  console.log('Я обновился')
-  localStorage.removeItem("user-info");
-localStorage.setItem("user-info", JSON.stringify(floor));
-
-})
+    onUpdated(() => {
+        localStorage.removeItem("user-info");
+        localStorage.setItem("user-info", JSON.stringify(floor));
+    })
 
 </script>
 <template>
     <div class="container">
-
         <div class="liftShaft">
             <div :style=floor[0]>
-
                 <Lift :pointer="floor[1].pointer" :floor="floor[1].floor" />
             </div>
         </div>
         <div style="display: flex; flex-direction: column-reverse;">
             <div class="" v-for="(index) in 5">
-
-                <div class="hall" :key="index" @click="CheckFloor(index)" >
+                <div class="hall" :key="index" @click="CheckFloor(index)">
                     <div style="display: flex; align-items: center;">
                         <h3 style="margin: 5px;">{{ index }}</h3>
                         <div v-if="floor[1].queue.includes(index)">
                             <div class="activeBtn" style="background:yellow;"></div>
                         </div>
                         <div v-else>
-
                             <div class="activeBtn" v-if="floor[1].activeBtn == index"></div>
                             <div class="activeBtn" v-else style="background:rgb(156, 157, 240);"></div>
                         </div>
                     </div>
-                     
-
-                    <Button/>
+                    <Button />
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -95,15 +75,16 @@ localStorage.setItem("user-info", JSON.stringify(floor));
 }
 
 .hall {
-display: flex;
-flex-direction: column;
-gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 150px;
     height: 20vh;
     border-bottom: 1px solid grey;
     border-top: 1px solid grey;
 }
-.activeBtn{
+
+.activeBtn {
     width: 10px;
     height: 10px;
     border-radius: 50%;

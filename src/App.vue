@@ -5,23 +5,22 @@ import Lift from './components/lift/Lift.vue';
 import { floor } from './components/data/data';
 import { handleClickBtn } from './components/functions/functions';
 
+// condition
+
 if (!(localStorage.key(0) == "user-info")) {
   localStorage.setItem("user-info", JSON.stringify(floor));
-}else{
-floor.length = 0;
-floor.push(...JSON.parse(localStorage.getItem('user-info')))
-
-handleClickBtn(JSON.parse(localStorage.getItem('user-info'))[1].queue[0])
+} else {
+  floor.length = 0;
+  floor.push(...JSON.parse(localStorage.getItem('user-info')))
+  handleClickBtn(JSON.parse(localStorage.getItem('user-info'))[1].queue[0])
 }
 
 </script>
 <template>
   <div>
-   
-    <MainLift/>
+
+    <MainLift />
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>
