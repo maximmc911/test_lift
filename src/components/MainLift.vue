@@ -5,12 +5,14 @@
     import { handleClickBtn } from './functions/functions'
 import { onUpdated } from 'vue';
 
-    const CheckFloor = (e) =>{
+const CheckFloor = (e) =>{
 if (floor[1].pointer !== 'waiting') {
 if (!floor[1].queue.includes(e)) {
     
-    floor[1].queue.push(e)
+    floor[1].queue.push(e);
+    
     console.log(floor[1].queue);
+    
 }
 
      
@@ -22,18 +24,25 @@ if (!floor[1].queue.includes(e)) {
 
     handleClickBtn(e)
 }
+console.log(JSON.parse(localStorage.getItem("user-info"))[1].queue[0]);
 
-    
 
 
     onUpdated (  () => {
+
         if (floor[1].pointer == 'waiting' && floor[1].queue.length !==0) {
             handleClickBtn(floor[1].queue[0])
             floor[1].queue.shift()
         }
-console.log('Я обновился')
+
 })
 
+onUpdated(() => {
+  console.log('Я обновился')
+  localStorage.removeItem("user-info");
+localStorage.setItem("user-info", JSON.stringify(floor));
+
+})
 
 </script>
 <template>
@@ -51,9 +60,17 @@ console.log('Я обновился')
                 <div class="hall" :key="index" @click="CheckFloor(index)" >
                     <div style="display: flex; align-items: center;">
                         <h3 style="margin: 5px;">{{ index }}</h3>
-                        <div class="activeBtn" v-if="floor[1].activeBtn == index"></div>
-                        <div class="activeBtn" v-else style="background:rgb(156, 157, 240);"></div>
+                        <div v-if="floor[1].queue.includes(index)">
+                            <div class="activeBtn" style="background:yellow;"></div>
+                        </div>
+                        <div v-else>
+
+                            <div class="activeBtn" v-if="floor[1].activeBtn == index"></div>
+                            <div class="activeBtn" v-else style="background:rgb(156, 157, 240);"></div>
+                        </div>
                     </div>
+                     
+
                     <Button/>
                 </div>
             </div>
